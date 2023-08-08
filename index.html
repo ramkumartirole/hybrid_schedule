@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Custom FullCalendar Example</title>
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+  integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shivstyle.css">
+  <style>
+    
+  </style>
+</head>
+
+<body>
+  <!-- popup weekdays -->
+  <div class="overlay"></div>
+<div class="weekday">
+  <h1>Set Working Hours</h1>
+  <div class="close-btn" onclick="togglebtn()">X</div>
+  <div class="form-container">
+    <!-- Monday -->
+    <div class="weekname">
+      <p class="day">Monday</p>
+      <div class="toggle-container">
+        <label class="switch">
+          <input type="checkbox" class="toggle" data-target="fromTo1">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+    <div class="Fromthree" id="fromTo1">
+      <div class="label">
+        <label for="from1">From</label>
+        <input type="time" value="11:30" name="from1" class="input-field">
+      </div>
+      <div class="label">
+        <label for="to1">To</label>
+        <input type="time" value="11:30" name="to1" class="input-field">
+      </div>
+    </div>
+
+    <!-- Tuesday -->
+    <div class="weekname">
+      <p class="day">Tuesday</p>
+      <div class="toggle-container">
+        <label class="switch">
+          <input type="checkbox" class="toggle" data-target="fromTo2">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+    <div class="Fromthree" id="fromTo2">
+      <div class="label">
+        <label for="from2">From</label>
+        <input type="time" value="11:30" name="from2" class="input-field">
+      </div>
+      <div class="label">
+        <label for="to2">To</label>
+        <input type="time" value="11:30" name="to2" class="input-field">
+      </div>
+    </div>
+
+    <!-- Continue adding the code for the remaining weekdays... -->
+  </div>
+</div>
+  <h1>Hybrid Schedule</h1>
+  <div class="container"> <!-- Full-width block with two columns -->
+    <div class="column">
+      <div class="column-content">
+        <select id="dateSelect">
+          <option value="2023-08-01">August 1, 2023</option>
+          <option value="2023-08-08">August 8, 2023</option>
+          <option value="2023-08-15">August 15, 2023</option>
+          <option value="2023-08-22">August 22, 2023</option>
+        </select>
+        <button onclick="changeView('agendaDay')">Day</button>
+        <button onclick="changeView('agendaWeek')">Week</button>
+      </div>
+      <!-- Content for the first column -->
+
+    </div>
+    <div class="column">
+      <div class="column-content column-2-container"> <!-- Updated to use .column-2-container -->
+
+        <!-- Toggle Button for Dark Mode -->
+        <button onclick="toggleDarkMode()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+            fill="currentColor" class="bi bi-moon-stars" viewBox="0 0 16 16">
+            <path
+              d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z" />
+            <path
+              d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z" />
+          </svg></button>
+        <!-- Column to display Working Hours -->
+        <div class="column-content Work">
+          <h3>Working Hours</h3>
+          <h3 id="workingHours">0</h3>
+        </div>
+        <!-- Column to display Non-Working Hours -->
+        <div class="column-content no-work">
+          <h3>Non-Working Hours</h3>
+          <h3 id="nonWorkingHours">0</h3>
+        </div>
+        <!-- Column to Add Blocks -->
+        <div class="column-content">
+          <button id="showPopup">Add Time Block</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <h2 class="schedule">Schedule for Week of </h2 >
+      <p class="schedule">Create and complete task for boards.</p>
+    </div>
+    <div class="col-6">
+      <div class="team-btn">
+        <button id="openPopup">+ Add Team Member</button>
+      </div>
+
+      <div id="popupteam">
+        <h3>Add Team Members</h3>
+        <div id="closePopup">X</div>
+        <ul id="teamList">
+          <li data-id="1">Team Member 1 <span class="add" data-id="1">+</span></li>
+          <li data-id="2">Team Member 2 <span class="add" data-id="2">+</span></li>
+          <li data-id="3">Team Member 3 <span class="add" data-id="3">+</span></li>
+          <li data-id="4">Team Member 4 <span class="add" data-id="4">+</span></li>
+          <!-- Add more team members as needed -->
+        </ul>
+    
+        <h4>Select up to 6 team members</h4>
+        <ul id="selectedTeamMembers">
+          <!-- Selected team members will be added here -->
+        </ul>
+      
+        <!-- <button id="closePopup">Close</button> -->
+      </div>
+    </div>
+  </div>
+  <div class="popup" id="popup">
+    <div class="Popup-form">
+        <div class="Popup-form">
+            <h1>Add Time Block</h1>
+            <button class="cross">X</button>
+            <form action="#" class="form-container">
+                <div>
+                    <label for="working">Working Status</label>
+                    <select id="working" name="working">
+                        <option value="">Working</option>
+                        <option value=""></option>
+                        <option value=""></option>
+                    </select>
+                </div>
+    
+                <div class="Fromto">
+                    <div class="label">
+                        <label for="from">From</label>
+                        <input type="time" value="11:30" name="appt">
+                    </div>
+                    <div class="label">
+                        <label for="to">To</label>
+                        <input type="time" value="12:30">
+                    </div>
+    
+                </div>
+    
+    
+                <div>
+                    <label for="location">Location</label>
+                    <select name="location">
+                        <option value="office">Select One</option>
+                        <option value="office">office</option>
+                        <option value="Remote">Remote</option>
+                        <option value="Feild">Feild</option>
+                    </select>
+                </div>
+    
+                <div>
+                    <label for="select-office">Select-Office</label>
+                    <select id="office" name="office">
+                        <option value="australia">Bradbury Center - 1234, Race Cource Road, MG</option>
+                        <option value="australia">Australia</option>
+                        <option value="canada">Canada</option>
+                        <option value="usa">USA</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="repeat">Repeat</label>
+                    <select id="repeat" name="repeat">
+                        <option value="australia">Repeat Untill</option>
+                        <option value="Every-day">Every-day</option>
+                        <option value="Every-week">Every-week</option>
+                    </select>
+                </div>
+                <div class="label">
+                    <label for="date" style="margin-left: 3px;">Date</label>
+                    <input type="Date" id="date">
+                </div>
+    
+    
+    
+    
+                <input type="submit" value="Save">
+            </form>
+        </div>
+    </div>
+</div>
+  <div id="calendar"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#calendar').fullCalendar({
+        header: {
+          left: '',
+          center: '',
+          right: 'prev,next'
+        },
+        defaultView: 'agendaWeek',
+        defaultDate: '2023-08-02',
+        editable: true, // Allow events to be dragged and resized
+        eventLimit: true, // Allow "more" link when too many events
+        events: [
+          // Create events for working hours and non-working hours
+          {
+            title: 'Working Hours',
+            start: '2023-08-10T08:00:00',
+            end: '2023-08-10T17:00:00',
+            rendering: 'background',
+            backgroundColor: '#55efc4', // Set custom color for working hours
+          },
+          {
+            title: 'Non-Working Hours',
+            start: '2023-08-10T00:00:00',
+            end: '2023-08-10T08:00:00',
+            rendering: 'background',
+            backgroundColor: '#ff7675', // Set custom color for non-working hours
+          },
+          {
+            title: 'Non-Working Hours',
+            start: '2023-08-10T17:00:00',
+            end: '2023-08-10T23:59:59',
+            rendering: 'background',
+            backgroundColor: '#ff7675', // Set custom color for non-working hours
+          },
+        ],
+
+        eventRender: function (event, element) {
+          if (event.rendering === 'background') {
+            // Customize background events (working hours and non-working hours)
+            element.css('background-color', event.backgroundColor);
+            element.css('border', 'none');
+            element.css('border-radius', '5%');
+          } else {
+            // Customize regular events (Event 1, Event 2, etc.)
+            element.css('background-color', 'red');
+            element.css('border-color', 'blue');
+          }
+        },
+
+        // Add more options and callbacks as needed
+      });
+    });
+
+    function changeView(viewName) {
+      $('#calendar').fullCalendar('changeView', viewName);
+    }
+
+    document.getElementById('dateSelect').addEventListener('change', function () {
+      const selectedDate = this.value;
+      $('#calendar').fullCalendar('gotoDate', selectedDate);
+    });
+
+    // Dark Mode Toggle Function
+    function togglebtn() {
+      $(".weekday").toggle();
+      $(".overlay").hide();
+    }
+    function toggleDarkMode() {
+     $(".weekday").show();
+     $(".overlay").show();
+    }
+
+    // Function to Count Working and Non-Working Hours
+    function countHours() {
+      const events = $('#calendar').fullCalendar('clientEvents');
+      let workingHours = 0;
+      let nonWorkingHours = 0;
+
+      events.forEach(function (event) {
+        const start = moment(event.start);
+        const end = moment(event.end);
+
+        if (end.diff(start, 'hours') > 0) {
+          workingHours += end.diff(start, 'hours');
+        }
+      });
+
+      nonWorkingHours = 24 * events.length - workingHours;
+
+      document.getElementById('workingHours').textContent = workingHours + ' hours';
+      document.getElementById('nonWorkingHours').textContent = nonWorkingHours + ' hours';
+    }
+
+    // Call countHours when the calendar loads and when events are added/removed/updated
+    $('#calendar').fullCalendar('option', 'eventAfterAllRender', countHours);
+    $('#calendar').fullCalendar('option', 'eventAfterRender', countHours);
+    $('#calendar').fullCalendar('option', 'eventAfterRender', countHours);
+  </script>
+  <script>
+    $(document).ready(function () {
+        $("#showPopup").click(function () {
+            $("#popup").css("display", "flex");
+        });
+
+        $(".cross").click(function () {
+            $("#popup").css("display", "none");
+        });
+    });
+</script>
+<script>
+  $(document).ready(function () {
+      $('.toggle').on('click', function () {
+        const target = $(this).data('target');
+        $('#' + target).toggleClass('active', this.checked);
+      });
+    });
+
+    $("#openPopup").click(function() {
+        $("#popupteam").fadeIn(); // Show the popup
+        $(".overlay").fadeIn();
+      });
+
+      // Close the popup when the "Close" button is clicked
+      $("#closePopup").click(function() {
+        $("#popupteam").fadeOut(); // Hide the popup
+        $(".overlay").fadeOut();
+
+      });
+</script>
+<script>
+    $(document).ready(function() {
+      // Function to add a team member to the selected list
+      function addToSelected(id, name) {
+        $("#selectedTeamMembers").append("<li data-id='" + id + "'>" + name + " <span class='remove' data-id='" + id + "'>x</span></li>");
+      }
+
+      // Function to remove a team member from the selected list
+      function removeFromSelected(id) {
+        $("#selectedTeamMembers li[data-id='" + id + "']").remove();
+      }
+// Handle clicking the "+" icon to add a team member
+      $(document).on("click", ".add", function() {
+        var memberId = $(this).data("id");
+        var memberName = $(this).parent().text().trim();
+        addToSelected(memberId, memberName);
+        $(this).parent().hide();
+      });
+
+      // Handle clicking the "x" icon to remove a team member
+      $(document).on("click", ".remove", function() {
+        var memberId = $(this).data("id");
+        removeFromSelected(memberId);
+        $("#teamList li[data-id='" + memberId + "']").show();
+      });
+    });
+</script>
+</body>
+
+</html>
