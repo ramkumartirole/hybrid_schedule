@@ -116,8 +116,9 @@
   </div>
   <div class="row">
     <div class="col-6">
-      <h2 class="schedule">Schedule for Week of </h2 >
-      <p class="schedule">Create and complete task for boards.</p>
+      <div class="custom-content">
+      </div>
+      <p>Create and complet task using boards.</p>
     </div>
     <div class="col-6">
       <div class="team-btn">
@@ -266,10 +267,32 @@
             element.css('border-color', 'blue');
           }
         },
+        viewRender: function (view) {
+                    if (view.name === "agendaDay") {
+                        $(".custom-content").html('<h2 class="schedule">Schedule for Day of</h2>');
+                        toggleAddTeamButton(view.name); // Show the button for day view
+                    } else if (view.name === "agendaWeek") {
+                        $(".custom-content").html('<h2 class="schedule">Schedule for Week of</h2>');
+                        toggleAddTeamButton(view.name); // Hide the button for week view
+                    } else {
+                        $(".custom-content").empty();
+                        $("#openPopup").hide(); // Hide the button for other views
+                    }
+                }
 
         // Add more options and callbacks as needed
       });
     });
+
+    function toggleAddTeamButton(viewName) {
+            if (viewName === "agendaDay") {
+                $("#openPopup").show();
+            } else {
+                $("#openPopup").hide();
+            }
+        }
+
+        toggleAddTeamButton("agendaWeek");
 
     function changeView(viewName) {
       $('#calendar').fullCalendar('changeView', viewName);
